@@ -1,3 +1,4 @@
+import 'package:app_showcase/screen/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -37,7 +38,11 @@ class HomeScreen extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            onPressed: () => null,
+            onPressed: () => Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const SettingsScreen(),
+              ),
+            ),
             icon: const Icon(
               CupertinoIcons.settings,
               color: Colors.white,
