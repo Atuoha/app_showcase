@@ -88,7 +88,9 @@ class HomeScreen extends StatelessWidget {
                   (index) => Image.asset(
                     'assets/imgs/cup.png',
                     width: 50,
-                    color: index % 2 == 0 ? AppColor.primaryColor : Colors.grey,
+                    color: index % 2 == 0
+                        ? AppColor.primaryColor
+                        : Colors.grey.withOpacity(0.6),
                   ),
                 ),
               )
