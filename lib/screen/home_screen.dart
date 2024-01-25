@@ -20,11 +20,37 @@ class _HomeScreenState extends State<HomeScreen> {
   final key3 = GlobalKey();
 
   @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ShowCaseWidget.of(context).startShowCase([key1, key2, key3]);
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => null,
-        child: const Icon(CupertinoIcons.drop_triangle_fill),
+      floatingActionButton: Showcase.withWidget(
+        key: key3,
+        width: 50,
+        height: 50,
+        tooltipPosition: TooltipPosition.top,
+        targetShapeBorder: const CircleBorder(),
+        container: CircleAvatar(
+          backgroundColor: Colors.lightBlue,
+          radius: 30,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Image.asset(
+              'assets/imgs/cup.png',
+              width: 100,
+            ),
+          ),
+        ),
+        child: FloatingActionButton(
+          onPressed: () => null,
+          child: const Icon(CupertinoIcons.drop_triangle_fill),
+        ),
       ),
       appBar: AppBar(
         leading: GestureDetector(
@@ -66,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
               targetShapeBorder: const CircleBorder(),
               tooltipBackgroundColor: Colors.lightBlue,
               textColor: Colors.white,
-              showArrow: false,
+              showArrow: true,
               targetPadding: const EdgeInsets.all(8.0),
               descriptionPadding: const EdgeInsets.all(20.0),
               child: const Icon(
@@ -79,7 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child:  Center(
+        child: Center(
           child: Showcase(
             key: key2,
             title: 'Total Goal and water intake',
