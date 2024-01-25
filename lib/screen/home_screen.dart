@@ -1,11 +1,23 @@
 import 'package:app_showcase/screen/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:showcaseview/showcaseview.dart';
 
+import '../components/cups_widget.dart';
+import '../components/gauge_container.dart';
 import '../constants/colors.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  final key1 = GlobalKey();
+  final key2 = GlobalKey();
+  final key3 = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -15,9 +27,14 @@ class HomeScreen extends StatelessWidget {
         child: const Icon(CupertinoIcons.drop_triangle_fill),
       ),
       appBar: AppBar(
-        leading: const Icon(
-          CupertinoIcons.info,
-          color: Colors.white,
+        leading: GestureDetector(
+          onTap: () => setState(() {
+            ShowCaseWidget.of(context).startShowCase([key1, key2, key3]);
+          }),
+          child: const Icon(
+            CupertinoIcons.info,
+            color: Colors.white,
+          ),
         ),
         backgroundColor: Colors.lightBlue,
         title: const Wrap(
@@ -43,58 +60,58 @@ class HomeScreen extends StatelessWidget {
                 builder: (context) => const SettingsScreen(),
               ),
             ),
-            icon: const Icon(
-              CupertinoIcons.settings,
-              color: Colors.white,
+            icon: Showcase(
+              key: key1,
+              description: 'Go to settings to find out more about our stuffs',
+              targetShapeBorder: const CircleBorder(),
+              tooltipBackgroundColor: Colors.lightBlue,
+              textColor: Colors.white,
+              showArrow: false,
+              targetPadding: const EdgeInsets.all(8.0),
+              descriptionPadding: const EdgeInsets.all(20.0),
+              child: const Icon(
+                CupertinoIcons.settings,
+                color: Colors.white,
+              ),
             ),
           ),
         ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                height: 200,
-                decoration: const BoxDecoration(
-                  color: Colors.lightBlue,
-                  shape: BoxShape.circle,
-                ),
-                child: const Center(
-                  child: Text(
-                    'Your gauge',
+        child:  Center(
+          child: Showcase(
+            key: key2,
+            title: 'Total Goal and water intake',
+            titleTextStyle: const TextStyle(color: Colors.white),
+            description: 'Track your goal and water intake',
+            tooltipBackgroundColor: Colors.lightBlue,
+            descTextStyle: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w600,
+              fontSize: 16,
+            ),
+            targetPadding: const EdgeInsets.all(8.0),
+            descriptionPadding: const EdgeInsets.all(20.0),
+            child: const SizedBox(
+              height: 400,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  GaugeContainer(),
+                  SizedBox(height: 15),
+                  Text(
+                    'Monitor your gauge',
                     style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w800,
+                      color: Colors.grey,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                ),
+                  SizedBox(height: 10),
+                  CupsWidget()
+                ],
               ),
-              const SizedBox(height: 15),
-              const Text(
-                'Monitor your gauge',
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 10),
-              Row(
-                children: List.generate(
-                  8,
-                  (index) => Image.asset(
-                    'assets/imgs/cup.png',
-                    width: 50,
-                    color: index % 2 == 0
-                        ? AppColor.primaryColor
-                        : Colors.grey.withOpacity(0.6),
-                  ),
-                ),
-              )
-            ],
+            ),
           ),
         ),
       ),

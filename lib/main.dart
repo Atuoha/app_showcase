@@ -1,5 +1,6 @@
 import 'package:app_showcase/screen/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:showcaseview/showcaseview.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +17,11 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightBlue),
         useMaterial3: true,
       ),
-      home: const HomeScreen(),
+      home: ShowCaseWidget(
+        builder: Builder(
+          builder: (context) => const HomeScreen(),
+        ),
+      ),
     );
   }
 }
