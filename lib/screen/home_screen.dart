@@ -36,6 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
         height: 50,
         tooltipPosition: TooltipPosition.top,
         targetShapeBorder: const CircleBorder(),
+        targetPadding: const EdgeInsets.all(10),
         container: CircleAvatar(
           backgroundColor: Colors.lightBlue,
           radius: 30,
@@ -48,6 +49,11 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         child: FloatingActionButton(
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(50),
+            ),
+          ),
           onPressed: () => null,
           child: const Icon(CupertinoIcons.drop_triangle_fill),
         ),
