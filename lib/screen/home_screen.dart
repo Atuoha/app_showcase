@@ -101,6 +101,23 @@ class _HomeScreenState extends State<HomeScreen> {
               showArrow: true,
               targetPadding: const EdgeInsets.all(8.0),
               descriptionPadding: const EdgeInsets.all(20.0),
+              onTargetClick: () {
+                Navigator.of(context)
+                    .push(
+                      MaterialPageRoute(
+                        builder: (context) => const SettingsScreen(),
+                      ),
+                    )
+                    .then(
+                      (_) => setState(
+                        () {
+                          ShowCaseWidget.of(context)
+                              .startShowCase([key2, key3]);
+                        },
+                      ),
+                    );
+              },
+              disposeOnTap: true,
               child: const Icon(
                 CupertinoIcons.settings,
                 color: Colors.white,
